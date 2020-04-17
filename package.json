@@ -1,0 +1,25 @@
+{
+  "name": "yuque-to-hexo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/lib.js",
+  "bin": {
+    "y2hsync": "bin/y2hsync"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/374632897/yuque-hexo"
+  },
+
+  "keywords": ["yuque", "hexo"],
+  "author": "Jason <374632897@qq.com> (https://noteawesome.com)",
+  "license": "ISC",
+  "dependencies": {
+    "@yuque/sdk": "^1.1.1",
+    "chalk": "^4.0.0",
+    "inquirer": "^7.1.0"
+  }
+}

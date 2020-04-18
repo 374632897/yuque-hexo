@@ -1,25 +1,61 @@
 {
   "name": "yuque-to-hexo",
-  "version": "1.0.1",
-  "description": "",
+  "version": "1.0.2",
+  "description": "sync yuque docs to hexo",
   "main": "src/lib.js",
   "bin": {
     "y2hsync": "bin/y2hsync"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "commit": "npm run ls && git-cz",
+    "lint": "eslint ./src/*.js --fix",
+    "ls": "lint-staged"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/374632897/yuque-hexo"
+    "type": "git",
+    "url": "https://github.com/374632897/yuque-hexo"
   },
-
-  "keywords": ["yuque", "hexo"],
+  "keywords": [
+    "yuque",
+    "hexo"
+  ],
   "author": "Jason <374632897@qq.com> (https://noteawesome.com)",
   "license": "ISC",
   "dependencies": {
     "@yuque/sdk": "^1.1.1",
     "chalk": "^4.0.0",
     "inquirer": "^7.1.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "commitizen": "^4.0.4",
+    "cz-conventional-changelog": "^3.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.1.5"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "commitlint": {
+    "extends": ["@commitlint/config-conventional"]
   }
 }

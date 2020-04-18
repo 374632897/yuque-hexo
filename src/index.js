@@ -2,12 +2,11 @@ const chalk = require('chalk')
 const {
   getNamespace,
   getDocs,
-  getDoc,
-  writeToFile,
   syncDoc,
+  getInclude
 } = require('./util')
 
-let cnt = 0;
+let cnt = 0
 const tasks = []
 const failures = []
 
@@ -15,26 +14,28 @@ const sync = async () => {
   const namespace = await getNamespace()
   const docs = await getDocs(namespace)
 
+  const { enableInclude, include } = getInclude()
   for (const doc of docs) {
+    if (enableInclude && !include[doc.slug]) continue
     const task = syncDoc({ namespace, slug: doc.slug, title: doc.title })
     tasks.push(task)
     task.then(() => {
-      cnt++;
+      cnt++
     }, e => {
       failures.push(e.title)
     })
   }
   for (const task of tasks) {
-    await task;
+    await task
   }
 }
 
 (async () => {
   try {
     await sync()
-  } catch(e) {}
+  } catch (e) {}
 
-  let message = '';
+  let message = ''
   if (tasks.length === cnt) {
     message = chalk.green(`所有 ${tasks.length} 篇文档文档已同步完成`)
   } else {
